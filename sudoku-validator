@@ -5,12 +5,9 @@ require_relative './lib/region'
 require_relative './lib/combiner'
 require_relative './lib/sudoku_validator'
 
-file    = File.open(ARGV[0])
+file = File.open(ARGV[0])
 regions = SudokuParser.new(file).parse
 file.close
-
-combined_regions =
-  Combiner.new(collection: regions, queries: ['valid?', 'complete?'])
-
-result = SudokuValidator.new(combined_regions).validate
+sudoku = Combiner.new(collection: regions, queries: ['valid?', 'complete?'])
+result = SudokuValidator.new(sudoku).validate
 puts result

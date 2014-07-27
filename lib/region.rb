@@ -1,14 +1,14 @@
 class Region
   def initialize(numbers)
-    @numbers = numbers.sort
+    @numbers = numbers
   end
 
   def valid?
-    @numbers.size == @numbers.uniq.size
+    non_zeros = @numbers.reject(&:zero?)
+    non_zeros.size == non_zeros.uniq.size && non_zeros.max <= @numbers.size
   end
 
   def complete?
-    return false if @numbers.first != 1
-    @numbers.last == @numbers.size
+    !@numbers.include?(0) && @numbers.max <= @numbers.size
   end
 end
